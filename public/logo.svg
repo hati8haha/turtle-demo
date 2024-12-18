@@ -1,0 +1,18 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 16 16"
+  width="16"
+  height="16"
+>
+  <!-- Top-left border corner -->
+  <path d="M0,4 L0,0 L4,0" stroke="#161616" stroke-width="2" fill="none" stroke-linecap="round" />
+
+  <!-- Top-right border corner -->
+  <path d="M12,0 L16,0 L16,4" stroke="#161616" stroke-width="2" fill="none" stroke-linecap="round" />
+
+  <!-- Bottom-left border corner -->
+  <path d="M0,12 L0,16 L4,16" stroke="#161616" stroke-width="2" fill="none" stroke-linecap="round" />
+
+  <!-- Bottom-right border corner -->
+  <path d="M12,16 L16,16 L16,12" stroke="#161616" stroke-width="2" fill="none" stroke-linecap="round" />
+</svg>
