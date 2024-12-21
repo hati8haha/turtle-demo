@@ -14,8 +14,16 @@
   }
 }
 
+@font-face {
+  src: local('Satoshi'), url('./fonts/Satoshi-Variable.woff2') format('woff2');
+  font-family: var(--font-noto-sans-tc);
+  unicode-range: U+4E00-9FFF; /* 中文字體範圍 */
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-satoshi),  var(--font-noto-sans-tc), sans-serif; /* 英文字體為預設 */
+
 }
+
