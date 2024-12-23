@@ -18,15 +18,16 @@ const WitnessStories = async () => {
     query: userQueryStories,
   });
 
-  const storiesData = data.activities.map((activity: any) => ({
+
+
+  return (
+    <section className="w-full min-h-24 bg-ocean-light text-black overflow-x-hidden ">
+      <Stories stories={data.activities.map((activity: any) => ({
     date: activity.date,
     title: activity.title,
     description: activity.description,
     link: activity.post_link,
-  }));
-  return (
-    <section className="w-full min-h-24 bg-ocean-light text-black overflow-x-hidden ">
-      <Stories stories={storiesData} />
+  }))} />
 
       <div className="w-screen relative  h-0 z-0">
         <div className="animate-marquee absolute w-full bottom-20 pointer-events-none">
