@@ -1,6 +1,17 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, type PanInfo } from "framer-motion";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  type PropsWithChildren,
+} from "react";
+import {
+  motion,
+  AnimatePresence,
+  type PanInfo,
+  type AnimatePresenceProps,
+  type HTMLMotionProps,
+} from "framer-motion";
 import Image from "next/image";
 import { LeftButton, RightButton } from "./navigationButtons";
 
@@ -29,27 +40,12 @@ interface CarouselProps {
   autoPlayInterval?: number;
 }
 
-interface AnimationProps {
-  initial: {
-    opacity: number;
-    translateX: number;
-  };
-  animate: {
-    opacity: number;
-    translateX: number;
-  };
-  exit: {
-    opacity: number;
-    translateX: number;
-  };
-}
-
 const Carousel: React.FC<CarouselProps> = ({
   images,
   autoPlayInterval = 30000,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [[currDirection, prevDirection], setDirection] = useState([1, 1]);
+  const [currDirection, setDirection] = useState(1);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const prevIndex = currentIndex - 1 < 0 ? images.length - 1 : currentIndex - 1;
   const nextIndex = currentIndex + 1 > images.length - 1 ? 0 : currentIndex + 1;
@@ -73,18 +69,14 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const handleNext = () => {
     handleInteraction();
-    console.log(prevDirection, currDirection, "go next");
-
     setCurrentIndex((prev) => (prev + 1) % images.length);
-    setDirection((prev) => [prev[1], 1]);
+    setDirection(1);
   };
 
   const handlePrev = () => {
-    console.log(prevDirection, currDirection, "go prev");
-
     handleInteraction();
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    setDirection((prev) => [prev[1], -1]);
+    setDirection(-1);
   };
 
   const handleDotClick = (index: number) => {
@@ -114,49 +106,49 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
-  const animationProps = {
-    prev: {
-      initial: {
-        opacity: 0,
-        translateX: currDirection < 0 ? -1600 : 0,
-      },
-      animate: {
-        opacity: 0.5,
-        translateX: -910,
-      },
-      exit: {
-        opacity: 1,
-        translateX: currDirection > 0 ? -1600 : 0,
-      },
+  const prvVariants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      translateX: direction < 0 ? -1600 : 0,
+    }),
+    animate: {
+      opacity: 0.5,
+      translateX: -910,
     },
-    curr: {
-      initial: {
-        opacity: 0,
-        translateX: 910 * currDirection,
-      },
-      animate: {
-        opacity: 1,
-        translateX: 0,
-      },
-      exit: {
-        opacity: 0,
-        translateX: -910 * currDirection,
-      },
+    exit: (direction: number) => ({
+      opacity: 1,
+      translateX: direction > 0 ? -1600 : 0,
+    }),
+  };
+
+  const currVariants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      translateX: 910 * direction,
+    }),
+    animate: {
+      opacity: 1,
+      translateX: 0,
     },
-    next: {
-      initial: {
-        opacity: 0,
-        translateX: currDirection > 0 ? 1600 : 0,
-      },
-      animate: {
-        opacity: 0.5,
-        translateX: 910,
-      },
-      exit: {
-        opacity: 1,
-        translateX: currDirection < 0 ? 1600 : 0,
-      },
+    exit: (direction: number) => ({
+      opacity: 0,
+      translateX: -910 * direction,
+    }),
+  };
+
+  const nextVariants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      translateX: direction > 0 ? 1600 : 0,
+    }),
+    animate: {
+      opacity: 0.5,
+      translateX: 910,
     },
+    exit: (direction: number) => ({
+      opacity: 1,
+      translateX: direction < 0 ? 1600 : 0,
+    }),
   };
 
   return (
@@ -164,23 +156,44 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className="relative w-full px-6 max-w-[720px] mx-auto  ">
         <div className="relative aspect-video ">
           <Slide
-            animationProps={animationProps.prev}
             imgIndex={prevIndex}
             images={images}
             onDragEnd={handleOnDragEnd}
+            animatePresenceProps={{ custom: currDirection, mode: "sync" }}
+            motionDivProps={{
+              custom: currDirection,
+              variants: prvVariants,
+              initial: "initial",
+              animate: "animate",
+              exit: "exit",
+            }}
           />
 
           <Slide
-            animationProps={animationProps.curr}
             imgIndex={currentIndex}
             images={images}
             onDragEnd={handleOnDragEnd}
+            animatePresenceProps={{ custom: currDirection, mode: "sync" }}
+            motionDivProps={{
+              custom: currDirection,
+              variants: currVariants,
+              initial: "initial",
+              animate: "animate",
+              exit: "exit",
+            }}
           />
           <Slide
-            animationProps={animationProps.next}
             imgIndex={nextIndex}
             images={images}
             onDragEnd={handleOnDragEnd}
+            animatePresenceProps={{ custom: currDirection, mode: "sync" }}
+            motionDivProps={{
+              custom: currDirection,
+              variants: nextVariants,
+              initial: "initial",
+              animate: "animate",
+              exit: "exit",
+            }}
           />
         </div>
 
@@ -225,25 +238,28 @@ interface SlideProps {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => void;
-  animationProps: AnimationProps;
+  // animationProps: AnimationProps;
+  animatePresenceProps?: PropsWithChildren<AnimatePresenceProps>;
+  motionDivProps?: HTMLMotionProps<"div">;
 }
 const Slide = ({
   images,
   imgIndex,
-  animationProps,
   onDragEnd: handleOnDragEnd,
+  animatePresenceProps,
+  motionDivProps,
 }: SlideProps) => {
   return (
-    <AnimatePresence initial={false}>
+    <AnimatePresence initial={false} {...animatePresenceProps}>
       <motion.div
         key={imgIndex}
         className="absolute w-full h-full "
-        {...animationProps}
         transition={{ duration: 0.5 }}
         drag="x"
         dragConstraints={{ left: 200, right: 200 }}
         dragElastic={1}
         onDragEnd={handleOnDragEnd}
+        {...motionDivProps}
       >
         <Image
           src={images[imgIndex]}
