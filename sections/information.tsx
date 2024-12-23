@@ -38,7 +38,7 @@ const Information = () => {
 				/>
 			</div>
 			<div className="w-screen relative  h-0">
-				<div className="animate-marquee absolute w-full bottom-20">
+				<div className="animate-marquee absolute w-full bottom-20 pointer-events-none">
 					<span className="text-[#F5FDFF] text-[80px] md:text-[120px] lg:text-[200px] font-bold whitespace-nowrap">
 						information information information
 					</span>

@@ -1,7 +1,7 @@
 const FavoriteDiveSite = () => {
   return (
     <div className="bg-t-black-700 w-full overflow-x-hidden pt-6 relative">
-      <div className="animate-marquee absolute w-full top-[40%] md:top-1/3 ">
+      <div className="animate-marquee absolute w-full top-[40%] md:top-1/3  pointer-events-none">
         <span className=" text-t-black-500 text-[80px] md:text-[120px] lg:text-[200px] font-bold whitespace-nowrap">
           Favorite dive site Favorite dive site
         </span>
@@ -29,7 +29,7 @@ interface SitePinProps {
 }
 const SitePin = ({ subTitle, title, color }: SitePinProps) => {
   return (
-    <div className="flex flex-col items-center justify-center relative">
+    <section className="flex flex-col items-center justify-center relative">
       <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 font-bold flex flex-col items-center gap-2">
         <p className="text-t-black-700 text-base">{subTitle}</p>
         <p className="text-t-black-700 text-[28px] lg:text-[40px]">{title}</p>
@@ -44,7 +44,7 @@ const SitePin = ({ subTitle, title, color }: SitePinProps) => {
           color === "ocean" ? "bg-ocean-light" : "bg-t-white"
         } rounded-[50%]`}
       />
-    </div>
+    </section>
   );
 };
 
