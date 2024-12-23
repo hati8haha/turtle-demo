@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 台灣海龜網站 Demo
 
-## Getting Started
+這是一個關於台灣海龜的示範網站，旨在讓大家看看海龜的照片。
 
-First, run the development server:
+## 使用目的
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 此網站僅作為學習和展示用途，**無任何商業用途**。
+- 本網站的內容、設計和功能純粹為了非營利教育或展示目標。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用的技術
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **框架**: [Next.js](https://nextjs.org/) 15.1.1
+- **GraphQL 客戶端**: Apollo Client
+- **UI 元件**: NextUI 和 Tailwind CSS
+- **動畫**: Framer Motion
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 快速開始
 
-## Learn More
+1. 安裝相依套件：
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. 啟動開發伺服器：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+3. 建立生產環境的檔案：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run build
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. 啟動生產環境伺服器：
+
+   ```bash
+   npm start
+   ```
+
+## 版權聲明
+
+本網站的內容及其程式碼僅供學術和非商業使用。若需進一步使用，請聯繫作者或相關負責人。
