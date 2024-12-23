@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
-import { Button } from "@nextui-org/button";
 import Image from "next/image";
+import { LeftButton, RightButton } from "./navigationButtons";
 
 const throttle = <T extends unknown[]>(
   callback: (...args: T) => void,
@@ -185,35 +185,17 @@ const Carousel: React.FC<CarouselProps> = ({
         </div>
 
         {/* Navigation Buttons */}
-        <Button
+        <LeftButton
           onPress={throttledPrev}
-          className="absolute left-1/4 lg:-left-[120px] top-[98%]  lg:top-1/2 -translate-y-1/2 py-2 px-2 lg:py-3 lg:px-3 h-fit min-w-0 rounded-full bg-t-black-700 text-white hover:bg-t-black-700/75 transition-colors"
           aria-label="Previous slide"
-        >
-          <Image
-            src="/arrow-left-s.svg"
-            width={40}
-            height={40}
-            alt="arrow-left"
-            className="rotate-180 w-6 h-6 lg:w-10 lg:h-10"
-          />
-        </Button>
-
-        <Button
+          className="absolute left-1/4 lg:-left-[120px] top-[98%]  lg:top-1/2 -translate-y-1/2 "
+        />
+        <RightButton
           onPress={throttledNext}
-          className="absolute right-1/4 lg:-right-[120px] top-[98%] lg:top-1/2 -translate-y-1/2 py-2 px-2 lg:py-3 lg:px-3  h-fit min-w-0 rounded-full bg-t-black-700 text-white hover:bg-t-black-700/75 transition-colors"
-          aria-label="Next slide"
-        >
-          <Image
-            src="/arrow-left-s.svg"
-            width={40}
-            height={40}
-            alt="arrow-right"
-            className="w-6 h-6 lg:w-10 lg:h-10 "
-          />
-        </Button>
+          aria-label="Previous slide"
+          className="absolute right-1/4 lg:-right-[120px] top-[98%] lg:top-1/2 -translate-y-1/2 "
+        />
 
-        {/* Dot Navigation */}
         <div className="w-full flex justify-center pt-8 lg:py-8">
           <div className="flex gap-2">
             {images.map((_, index) => (
